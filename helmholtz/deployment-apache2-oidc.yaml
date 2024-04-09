@@ -1,0 +1,85 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    io.kompose.service: apache2-oidc
+  name: apache2-oidc
+  namespace: nest-dev
+spec:
+  progressDeadlineSeconds: 600
+  replicas: 1
+  revisionHistoryLimit: 10
+  strategy:
+    rollingUpdate:
+      maxSurge: 25%
+      maxUnavailable: 25%
+    type: RollingUpdate
+  template:
+    metadata:
+      labels:
+        io.kompose.network/nest-desktop-default: 'true'
+        io.kompose.service: apache2-oidc
+      name: apache2-oidc
+      namespace: nest-dev
+    spec:
+      containers:
+        - env:
+            - name: HOSTNAME
+              valueFrom:
+                configMapKeyRef:
+                  key: HOSTNAME
+                  name: oidc-env
+                  optional: false
+            - name: OIDC_CLIENT_ID
+              valueFrom:
+                configMapKeyRef:
+                  key: OIDC_CLIENT_ID
+                  name: oidc-env
+                  optional: false
+            - name: OIDC_CRYPTO_PASSPHRASE
+              valueFrom:
+                configMapKeyRef:
+                  key: OIDC_CRYPTO_PASSPHRASE
+                  name: oidc-env
+                  optional: false
+            - name: OIDC_ISSUER
+              valueFrom:
+                configMapKeyRef:
+                  key: OIDC_ISSUER
+                  name: oidc-env
+                  optional: false
+            - name: OIDC_CLIENT_SECRET
+              valueFrom:
+                secretKeyRef:
+                  key: OIDC_CLIENT_SECRET
+                  name: nest-desktop-oidc
+                  optional: false
+          image: docker-registry.ebrains.eu/nest/apache2-oidc:base
+          imagePullPolicy: IfNotPresent
+          name: apache2-oidc
+          ports:
+            - containerPort: 8080
+              hostPort: 8080
+              name: 8080tcp8080
+              protocol: TCP
+          resources: {}
+          securityContext:
+            allowPrivilegeEscalation: false
+            privileged: false
+            readOnlyRootFilesystem: false
+            runAsNonRoot: false
+          terminationMessagePath: /dev/termination-log
+          terminationMessagePolicy: File
+          volumeMounts:
+            - mountPath: /etc/apache2/sites-enabled/
+              name: volume-apache2-config
+      dnsPolicy: ClusterFirst
+      restartPolicy: Always
+      schedulerName: default-scheduler
+      securityContext: {}
+      terminationGracePeriodSeconds: 30
+      volumes:
+        - configMap:
+            defaultMode: 420
+            name: apache2-oidc
+          name: volume-apache2-config

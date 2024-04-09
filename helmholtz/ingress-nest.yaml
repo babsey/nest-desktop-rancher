@@ -1,0 +1,27 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: nest
+  namespace: nest-dev
+spec:
+  defaultBackend:
+    service:
+      name: apache2-oidc
+      port:
+        number: 8080
+  ingressClassName: nginx
+  rules:
+    - host: nest-desktop.helmholtz-cloud.desy.de
+      http:
+        paths:
+          - backend:
+              service:
+                name: apache2-oidc
+                port:
+                  number: 8080
+            path: /
+            pathType: Prefix
+  tls:
+    - hosts:
+        - nest-desktop.helmholtz-cloud.desy.de
+      secretName: nest-tls

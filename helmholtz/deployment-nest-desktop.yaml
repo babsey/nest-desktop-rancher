@@ -1,0 +1,47 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    io.kompose.service: nest-desktop
+  name: nest-desktop
+  namespace: nest-dev
+spec:
+  progressDeadlineSeconds: 600
+  replicas: 1
+  revisionHistoryLimit: 10
+  selector:
+    matchLabels:
+      io.kompose.service: nest-desktop
+  strategy:
+    rollingUpdate:
+      maxSurge: 25%
+      maxUnavailable: 25%
+    type: RollingUpdate
+  template:
+    metadata:
+      labels:
+        io.kompose.network/nest-desktop-default: 'true'
+        io.kompose.service: nest-desktop
+      name: nest-desktop
+      namespace: nest-dev
+    spec:
+      containers:
+        - env:
+            - name: NEST_SIMULATOR_URL
+              value: https://nest-desktop.helmholtz-cloud.desy.de/nest
+          image: docker-registry.ebrains.eu/nest/nest-desktop:3.3
+          imagePullPolicy: IfNotPresent
+          name: nest-desktop
+          resources: {}
+          terminationMessagePath: /dev/termination-log
+          terminationMessagePolicy: File
+      dnsPolicy: ClusterFirst
+      restartPolicy: Always
+      schedulerName: default-scheduler
+      securityContext: {}
+      terminationGracePeriodSeconds: 30
+      volumes:
+        - configMap:
+            defaultMode: 420
+            name: apache2-oidc
+          name: volume-apache2-config

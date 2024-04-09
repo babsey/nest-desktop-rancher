@@ -1,0 +1,10 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: oidc-env
+  namespace: nest-dev
+data:
+  HOSTNAME: https://nest-desktop.helmholtz-cloud.desy.de
+  OIDC_CLIENT_ID: nest-desktop-dev
+  OIDC_CRYPTO_PASSPHRASE: It should be a random value.
+  OIDC_ISSUER: https://login-dev.helmholtz.de/oauth2
