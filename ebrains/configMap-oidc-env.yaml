@@ -1,0 +1,10 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: oidc-env
+  namespace: nest-desktop
+data:
+  HOSTNAME: https://nest-desktop.apps.tc.humanbrainproject.eu
+  OIDC_CLIENT_ID: nest-desktop-dev
+  OIDC_CRYPTO_PASSPHRASE: It should be a random value.
+  OIDC_ISSUER: https://iam.ebrains.eu/auth/realms/hbp
