@@ -1,12 +1,12 @@
 apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
-  name: nest-desktop
+  name: nest-desktop-dev
   namespace: nest-desktop
 spec:
   defaultBackend:
     service:
-      name: apache2-oidc
+      name: apache2-oidc-dev
       port:
         number: 8080
   ingressClassName: nginx
@@ -16,7 +16,7 @@ spec:
         paths:
           - backend:
               service:
-                name: apache2-oidc
+                name: apache2-oidc-dev
                 port:
                   number: 8080
             path: /
@@ -24,4 +24,4 @@ spec:
   tls:
     - hosts:
         - nest-desktop.apps.tc.humanbrainproject.eu
-      secretName: tls-nest-desktop
+      secretName: tls-nest-desktop-dev

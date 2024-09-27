@@ -6,10 +6,6 @@ metadata:
   name: nest-simulator
   namespace: nest-dev
 spec:
-  internalTrafficPolicy: Cluster
-  ipFamilies:
-    - IPv4
-  ipFamilyPolicy: SingleStack
   ports:
     - port: 52425
       protocol: TCP
@@ -21,4 +17,3 @@ spec:
     clientIP:
       timeoutSeconds: 600
   type: ClusterIP
-

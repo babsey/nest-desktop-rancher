@@ -1,0 +1,28 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    io.kompose.service: nest-desktop-dev
+  name: nest-desktop-dev
+  namespace: nest-desktop
+spec:
+  template:
+    metadata:
+      labels:
+        io.kompose.service: nest-desktop-dev
+      name: nest-desktop-dev
+      namespace: nest-desktop
+    spec:
+      containers:
+        - env:
+            - name: NEST_SIMULATOR_URL
+              value: https://nest-desktop.apps.tc.humanbrainproject.eu/nest
+            - name: NORSE_SIMULATOR_URL
+              value: https://nest-desktop.apps.tc.humanbrainproject.eu/norse
+            - name: NESTML_SERVER_URL
+              value: https://nest-desktop.apps.tc.humanbrainproject.eu/nestml
+            - name: NESTML_SERVER_ENABLED
+              value: "1"
+          image: docker-registry.ebrains.eu/nest/nest-desktop:4.0-beta12
+          imagePullPolicy: Always
+          name: nest-desktop

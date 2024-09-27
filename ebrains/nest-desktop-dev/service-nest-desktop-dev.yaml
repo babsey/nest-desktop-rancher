@@ -1,20 +1,14 @@
 apiVersion: v1
 kind: Service
 metadata:
-  labels:
-    io.kompose.service: nest-desktop
-  name: nest-desktop
+  name: nest-desktop-dev
   namespace: nest-desktop
 spec:
-  internalTrafficPolicy: Cluster
-  ipFamilies:
-    - IPv4
-  ipFamilyPolicy: SingleStack
   ports:
     - port: 54286
       protocol: TCP
       targetPort: 54286
   selector:
-    io.kompose.service: nest-desktop
+    io.kompose.service: nest-desktop-dev
   sessionAffinity: None
   type: ClusterIP

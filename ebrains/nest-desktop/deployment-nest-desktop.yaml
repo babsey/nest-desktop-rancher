@@ -1,0 +1,22 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    io.kompose.service: nest-desktop
+  name: nest-desktop
+  namespace: nest-desktop
+spec:
+  template:
+    metadata:
+      labels:
+        io.kompose.service: nest-desktop
+      name: nest-desktop
+      namespace: nest-desktop
+    spec:
+      containers:
+        - env:
+            - name: NEST_SIMULATOR_URL
+              value: https://nest-desktop.apps.ebrains.eu/nest
+          image: docker-registry.ebrains.eu/nest/nest-desktop:3.3.1
+          imagePullPolicy: IfNotPresent
+          name: nest-desktop

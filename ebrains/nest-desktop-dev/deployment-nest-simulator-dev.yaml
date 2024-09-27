@@ -1,0 +1,47 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    io.kompose.service: nest-simulator-dev
+  name: nest-simulator-dev
+  namespace: nest-desktop
+spec:
+  template:
+    metadata:
+      labels:
+        io.kompose.service: nest-simulator-dev
+      name: nest-simulator-dev
+      namespace: nest-desktop
+    spec:
+      containers:
+        - env:
+            - name: NEST_CONTAINER_MODE
+              value: nest-server
+          image: nest/nest-simulator:3.8
+          imagePullPolicy: Always
+          name: nest-simulator
+          resources:
+            limits:
+              memory: 4000Mi
+          volumeMounts:
+            - mountPath: /tmp/nestmlmodules
+              name: vol-o20i6
+              readOnly: true
+              subPath: nestmlmodules
+        - env:
+            - name: NEST_CONTAINER_MODE
+              value: nestml-server
+          image: nest/nest-simulator:3.8
+          imagePullPolicy: Always
+          name: nestml
+          resources:
+            limits:
+              memory: 4000Mi
+          volumeMounts:
+            - mountPath: /tmp/nestmlmodules
+              name: vol-o20i6
+              subPath: nestmlmodules
+      volumes:
+        - name: vol-o20i6
+          persistentVolumeClaim:
+            claimName: nestmlmodules

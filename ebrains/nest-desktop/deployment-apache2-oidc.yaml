@@ -1,0 +1,63 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    io.kompose.service: apache2-oidc
+  name: apache2-oidc
+  namespace: nest-desktop
+spec:
+  template:
+    metadata:
+      labels:
+        io.kompose.service: apache2-oidc
+      name: apache2-oidc
+      namespace: nest-desktop
+    spec:
+      containers:
+        - env:
+            - name: HOSTNAME
+              valueFrom:
+                configMapKeyRef:
+                  key: HOSTNAME
+                  name: oidc-env
+                  optional: false
+            - name: OIDC_CLIENT_ID
+              valueFrom:
+                configMapKeyRef:
+                  key: OIDC_CLIENT_ID
+                  name: oidc-env
+                  optional: false
+            - name: OIDC_CRYPTO_PASSPHRASE
+              valueFrom:
+                configMapKeyRef:
+                  key: OIDC_CRYPTO_PASSPHRASE
+                  name: oidc-env
+                  optional: false
+            - name: OIDC_ISSUER
+              valueFrom:
+                configMapKeyRef:
+                  key: OIDC_ISSUER
+                  name: oidc-env
+                  optional: false
+            - name: OIDC_CLIENT_SECRET
+              valueFrom:
+                secretKeyRef:
+                  key: OIDC_CLIENT_SECRET
+                  name: nest-desktop-oidc
+                  optional: false
+          image: docker-registry.ebrains.eu/nest/apache2-oidc:base
+          imagePullPolicy: IfNotPresent
+          name: apache2-oidc
+          ports:
+            - containerPort: 8080
+              hostPort: 8080
+              name: 8080tcp8080
+              protocol: TCP
+          volumeMounts:
+            - mountPath: /etc/apache2/sites-enabled/
+              name: volume-apache2-config
+      volumes:
+        - configMap:
+            defaultMode: 420
+            name: apache2-oidc
+          name: volume-apache2-config

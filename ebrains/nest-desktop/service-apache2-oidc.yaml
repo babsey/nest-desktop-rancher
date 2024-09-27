@@ -4,10 +4,6 @@ metadata:
   name: apache2-oidc
   namespace: nest-desktop
 spec:
-  internalTrafficPolicy: Cluster
-  ipFamilies:
-    - IPv4
-  ipFamilyPolicy: SingleStack
   ports:
     - port: 8080
       protocol: TCP

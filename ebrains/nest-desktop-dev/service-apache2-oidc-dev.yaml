@@ -1,18 +1,14 @@
 apiVersion: v1
 kind: Service
 metadata:
-  name: apache2-oidc
-  namespace: nest-dev
+  name: apache2-oidc-dev
+  namespace: nest-desktop
 spec:
-  internalTrafficPolicy: Cluster
-  ipFamilies:
-    - IPv4
-  ipFamilyPolicy: SingleStack
   ports:
     - port: 8080
       protocol: TCP
       targetPort: 8080
   selector:
-    io.kompose.service: apache2-oidc
+    io.kompose.service: apache2-oidc-dev
   sessionAffinity: None
   type: ClusterIP

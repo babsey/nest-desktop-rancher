@@ -1,0 +1,24 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    io.kompose.service: nest-simulator
+  name: nest-simulator
+  namespace: nest-desktop
+spec:
+  template:
+    metadata:
+      labels:
+        io.kompose.service: nest-simulator
+      namespace: nest-desktop
+    spec:
+      containers:
+        - env:
+            - name: NEST_CONTAINER_MODE
+              value: nest-server
+          image: nest/nest-simulator:3.8
+          imagePullPolicy: IfNotPresent
+          name: nest-simulator
+          resources:
+            limits:
+              memory: 8000Mi

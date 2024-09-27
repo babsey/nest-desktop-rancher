@@ -1,0 +1,27 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: nest-desktop
+  namespace: nest-desktop
+spec:
+  defaultBackend:
+    service:
+      name: apache2-oidc
+      port:
+        number: 8080
+  ingressClassName: nginx
+  rules:
+    - host: nest-desktop.apps.ebrains.eu
+      http:
+        paths:
+          - backend:
+              service:
+                name: apache2-oidc
+                port:
+                  number: 8080
+            path: /
+            pathType: Prefix
+  tls:
+    - hosts:
+        - nest-desktop.apps.ebrains.eu
+      secretName: tls-nest-desktop-apps

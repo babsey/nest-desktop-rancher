@@ -6,10 +6,6 @@ metadata:
   name: nest-desktop
   namespace: nest-dev
 spec:
-  internalTrafficPolicy: Cluster
-  ipFamilies:
-    - IPv4
-  ipFamilyPolicy: SingleStack
   ports:
     - port: 54286
       protocol: TCP
