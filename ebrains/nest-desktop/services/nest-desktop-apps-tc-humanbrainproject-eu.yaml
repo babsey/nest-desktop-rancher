@@ -1,0 +1,57 @@
+apiVersion: v1
+kind: Service
+metadata:
+  creationTimestamp: '2024-05-16T13:22:59Z'
+  managedFields:
+    - apiVersion: v1
+      fieldsType: FieldsV1
+      fieldsV1:
+        f:spec:
+          f:clusterIP: {}
+          f:clusterIPs: {}
+          f:internalTrafficPolicy: {}
+          f:ipFamilies: {}
+          f:ipFamilyPolicy: {}
+          f:ports:
+            .: {}
+            k:{"port":8080,"protocol":"TCP"}:
+              .: {}
+              f:port: {}
+              f:protocol: {}
+              f:targetPort: {}
+          f:selector: {}
+          f:sessionAffinity: {}
+          f:sessionAffinityConfig:
+            .: {}
+            f:clientIP:
+              .: {}
+              f:timeoutSeconds: {}
+          f:type: {}
+      manager: agent
+      operation: Update
+      time: '2024-11-07T16:49:56Z'
+  name: nest-desktop-apps-tc-humanbrainproject-eu
+  namespace: nest-desktop
+  resourceVersion: '367120809'
+  uid: 6d089a01-27fa-484c-ba5d-44c07adad3ee
+spec:
+  clusterIP: 10.43.189.66
+  clusterIPs:
+    - 10.43.189.66
+  internalTrafficPolicy: Cluster
+  ipFamilies:
+    - IPv4
+  ipFamilyPolicy: SingleStack
+  ports:
+    - port: 8080
+      protocol: TCP
+      targetPort: 8080
+  selector:
+    io.kompose.service: nest-desktop.apps.tc.humanbrainproject.eu
+  sessionAffinity: ClientIP
+  sessionAffinityConfig:
+    clientIP:
+      timeoutSeconds: 600
+  type: ClusterIP
+status:
+  loadBalancer: {}

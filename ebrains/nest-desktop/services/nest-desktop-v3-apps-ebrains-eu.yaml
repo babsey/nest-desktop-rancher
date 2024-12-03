@@ -1,0 +1,45 @@
+apiVersion: v1
+kind: Service
+metadata:
+  creationTimestamp: '2024-12-02T12:11:44Z'
+  managedFields:
+    - apiVersion: v1
+      fieldsType: FieldsV1
+      fieldsV1:
+        f:spec:
+          f:internalTrafficPolicy: {}
+          f:ports:
+            .: {}
+            k:{"port":8080,"protocol":"TCP"}:
+              .: {}
+              f:port: {}
+              f:protocol: {}
+              f:targetPort: {}
+          f:selector: {}
+          f:sessionAffinity: {}
+          f:type: {}
+      manager: agent
+      operation: Update
+      time: '2024-12-02T12:11:44Z'
+  name: nest-desktop-v3-apps-ebrains-eu
+  namespace: nest-desktop
+  resourceVersion: '392578932'
+  uid: 98d341a0-d514-476f-b283-afcf750d9723
+spec:
+  clusterIP: 10.43.90.67
+  clusterIPs:
+    - 10.43.90.67
+  internalTrafficPolicy: Cluster
+  ipFamilies:
+    - IPv4
+  ipFamilyPolicy: SingleStack
+  ports:
+    - port: 8080
+      protocol: TCP
+      targetPort: 8080
+  selector:
+    io.kompose.service: nest-desktop-v3.apps.ebrains.eu
+  sessionAffinity: None
+  type: ClusterIP
+status:
+  loadBalancer: {}
