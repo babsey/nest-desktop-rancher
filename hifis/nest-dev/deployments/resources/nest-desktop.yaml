@@ -2,18 +2,11 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   annotations:
-    deployment.kubernetes.io/revision: '19'
-    field.cattle.io/publicEndpoints: 'null'
-    kompose.cmd: kompose convert -f docker-compose.yml
-    kompose.version: 1.30.0 (HEAD)
-    kubectl.kubernetes.io/last-applied-configuration: >
-      {"apiVersion":"apps/v1","kind":"Deployment","metadata":{"annotations":{"kompose.cmd":"kompose
-      convert -f docker-compose.yml","kompose.version":"1.30.0
-      (HEAD)"},"creationTimestamp":null,"labels":{"io.kompose.service":"nest-desktop"},"name":"nest-desktop","namespace":"nest-dev"},"spec":{"replicas":1,"selector":{"matchLabels":{"io.kompose.service":"nest-desktop"}},"strategy":{},"template":{"metadata":{"annotations":{"kompose.cmd":"kompose
-      convert -f docker-compose.yml","kompose.version":"1.30.0
-      (HEAD)"},"creationTimestamp":null,"labels":{"io.kompose.network/nest-desktop-default":"true","io.kompose.service":"nest-desktop"}},"spec":{"containers":[{"env":[{"name":"NEST_SIMULATOR_PORT","value":"52425"}],"image":"docker-registry.ebrains.eu/nest/nest-desktop:3.2","name":"nest-desktop","ports":[{"containerPort":54286,"hostPort":54286,"protocol":"TCP"}],"resources":{}}],"restartPolicy":"Always"}}},"status":{}}
+    deployment.kubernetes.io/revision: '23'
+    field.cattle.io/publicEndpoints: >-
+      [{"addresses":["10.43.73.212"],"port":443,"protocol":"HTTPS","serviceName":"nest-dev:nest-desktop","ingressName":"nest-dev:nest","hostname":"nest-desktop.helmholtz-cloud.desy.de","path":"/","allNodes":true}]
   creationTimestamp: '2023-08-08T08:10:45Z'
-  generation: 113
+  generation: 120
   labels:
     io.kompose.service: nest-desktop
   managedFields:
@@ -21,11 +14,7 @@ metadata:
       fieldsType: FieldsV1
       fieldsV1:
         f:metadata:
-          f:annotations:
-            .: {}
-            f:kompose.cmd: {}
-            f:kompose.version: {}
-            f:kubectl.kubernetes.io/last-applied-configuration: {}
+          f:annotations: {}
           f:labels:
             .: {}
             f:io.kompose.service: {}
@@ -41,13 +30,8 @@ metadata:
             f:type: {}
           f:template:
             f:metadata:
-              f:annotations:
-                .: {}
-                f:kompose.cmd: {}
-                f:kompose.version: {}
               f:labels:
                 .: {}
-                f:io.kompose.network/nest-desktop-default: {}
                 f:io.kompose.service: {}
             f:spec:
               f:containers:
@@ -76,8 +60,6 @@ metadata:
           f:replicas: {}
           f:template:
             f:metadata:
-              f:annotations:
-                f:cattle.io/timestamp: {}
               f:namespace: {}
             f:spec:
               f:containers:
@@ -93,6 +75,13 @@ metadata:
                       f:value: {}
                   f:image: {}
                   f:imagePullPolicy: {}
+                  f:ports:
+                    .: {}
+                    k:{"containerPort":54286,"protocol":"TCP"}:
+                      .: {}
+                      f:containerPort: {}
+                      f:name: {}
+                      f:protocol: {}
               f:volumes:
                 .: {}
                 k:{"name":"volume-apache2-config"}:
@@ -104,7 +93,7 @@ metadata:
                   f:name: {}
       manager: agent
       operation: Update
-      time: '2024-11-28T11:23:16Z'
+      time: '2024-12-06T22:10:35Z'
     - apiVersion: apps/v1
       fieldsType: FieldsV1
       fieldsV1:
@@ -138,10 +127,10 @@ metadata:
       manager: kube-controller-manager
       operation: Update
       subresource: status
-      time: '2024-11-28T11:23:28Z'
+      time: '2024-12-06T22:10:35Z'
   name: nest-desktop
   namespace: nest-dev
-  resourceVersion: '413189428'
+  resourceVersion: '417518206'
   uid: ee4102d8-6732-409a-94aa-35372c77863f
 spec:
   progressDeadlineSeconds: 600
@@ -157,13 +146,8 @@ spec:
     type: RollingUpdate
   template:
     metadata:
-      annotations:
-        cattle.io/timestamp: '2024-11-28T11:23:16Z'
-        kompose.cmd: kompose convert -f docker-compose.yml
-        kompose.version: 1.30.0 (HEAD)
       creationTimestamp: null
       labels:
-        io.kompose.network/nest-desktop-default: 'true'
         io.kompose.service: nest-desktop
       namespace: nest-dev
     spec:
@@ -176,6 +160,10 @@ spec:
           image: nest/nest-desktop:4.0
           imagePullPolicy: Always
           name: nest-desktop
+          ports:
+            - containerPort: 54286
+              name: frontend
+              protocol: TCP
           resources: {}
           terminationMessagePath: /dev/termination-log
           terminationMessagePolicy: File
@@ -192,19 +180,19 @@ spec:
 status:
   availableReplicas: 1
   conditions:
-    - lastTransitionTime: '2024-08-02T07:54:50Z'
-      lastUpdateTime: '2024-08-02T07:54:50Z'
+    - lastTransitionTime: '2024-12-06T22:09:01Z'
+      lastUpdateTime: '2024-12-06T22:09:01Z'
       message: Deployment has minimum availability.
       reason: MinimumReplicasAvailable
       status: 'True'
       type: Available
     - lastTransitionTime: '2023-08-08T08:10:45Z'
-      lastUpdateTime: '2024-11-28T11:23:28Z'
-      message: ReplicaSet "nest-desktop-6697c46587" has successfully progressed.
+      lastUpdateTime: '2024-12-06T22:10:07Z'
+      message: ReplicaSet "nest-desktop-5d666ffd" has successfully progressed.
       reason: NewReplicaSetAvailable
       status: 'True'
       type: Progressing
-  observedGeneration: 113
+  observedGeneration: 120
   readyReplicas: 1
   replicas: 1
   updatedReplicas: 1

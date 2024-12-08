@@ -51,8 +51,8 @@ data:
         #
         
         # NEST Simulator
-        ProxyPass /nest http://${NEST_SIMULATOR_SERVICE_HOST}:52425/
-        ProxyPassReverse /nest http://${NEST_SIMULATOR_SERVICE_HOST}:52425/
+        ProxyPass /nest http://${NEST_DESKTOP_SERVICE_HOST}:52425/
+        ProxyPassReverse /nest http://${NEST_DESKTOP_SERVICE_HOST}:52425/
 
         # NESTML
         #ProxyPass /nestml http://${NEST_SIMULATOR_SERVICE_HOST}:52426/
@@ -74,8 +74,8 @@ metadata:
           f:vhost.conf: {}
       manager: agent
       operation: Update
-      time: '2024-09-26T13:52:14Z'
+      time: '2024-12-06T21:51:07Z'
   name: apache2-oidc
   namespace: nest-dev
-  resourceVersion: '381341986'
+  resourceVersion: '417510754'
   uid: aa0267e4-31de-4f34-b239-ce1e1e218db4

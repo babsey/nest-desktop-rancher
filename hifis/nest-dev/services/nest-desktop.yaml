@@ -25,19 +25,37 @@ metadata:
             f:io.kompose.service: {}
         f:spec:
           f:ports:
+            k:{"port":8080,"protocol":"TCP"}:
+              .: {}
+              f:name: {}
+              f:port: {}
+              f:protocol: {}
+              f:targetPort: {}
+            k:{"port":52425,"protocol":"TCP"}:
+              .: {}
+              f:name: {}
+              f:port: {}
+              f:protocol: {}
+              f:targetPort: {}
             k:{"port":54286,"protocol":"TCP"}:
               .: {}
+              f:name: {}
               f:port: {}
               f:protocol: {}
               f:targetPort: {}
           f:selector: {}
           f:sessionAffinity: {}
+          f:sessionAffinityConfig:
+            .: {}
+            f:clientIP:
+              .: {}
+              f:timeoutSeconds: {}
       manager: agent
       operation: Update
-      time: '2023-10-26T13:04:24Z'
+      time: '2024-12-06T22:11:28Z'
   name: nest-desktop
   namespace: nest-dev
-  resourceVersion: '209055805'
+  resourceVersion: '417518530'
   uid: 8b6c2391-8213-4691-a794-3ebf439142e3
 spec:
   clusterIP: 10.43.232.246
@@ -48,12 +66,24 @@ spec:
     - IPv4
   ipFamilyPolicy: SingleStack
   ports:
-    - port: 54286
+    - name: auth
+      port: 8080
       protocol: TCP
-      targetPort: 54286
+      targetPort: auth
+    - name: frontend
+      port: 54286
+      protocol: TCP
+      targetPort: frontend
+    - name: nest
+      port: 52425
+      protocol: TCP
+      targetPort: nest
   selector:
     io.kompose.service: nest-desktop
-  sessionAffinity: None
+  sessionAffinity: ClientIP
+  sessionAffinityConfig:
+    clientIP:
+      timeoutSeconds: 600
   type: ClusterIP
 status:
   loadBalancer: {}
