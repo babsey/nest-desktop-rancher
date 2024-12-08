@@ -51,12 +51,16 @@ data:
         #
 
         # NEST Simulator
-        ProxyPass /nest http://${NEST_SIMULATOR_SERVICE_HOST}:52425/
-        ProxyPassReverse /nest http://${NEST_SIMULATOR_SERVICE_HOST}:52425/
+        ProxyPass /nest http://${NEST_DESKTOP_SERVICE_HOST}:52425/
+        ProxyPassReverse /nest http://${NEST_DESKTOP_SERVICE_HOST}:52425/
+
+        # NESTML
+        ProxyPass /nestml http://${NEST_DESKTOP_SERVICE_HOST}:52426/
+        ProxyPassReverse /nestml http://${NEST_DESKTOP_SERVICE_HOST}:52426/
 
         # NEST Desktop
-        ProxyPass / http://${NEST_DESKTOP_V3_SERVICE_HOST}:54286/
-        ProxyPassReverse / http://${NEST_DESKTOP_V3_SERVICE_HOST}:54286/
+        ProxyPass / http://${NEST_DESKTOP_SERVICE_HOST}:54286/
+        ProxyPassReverse / http://${NEST_DESKTOP_SERVICE_HOST}:54286/
     </VirtualHost>
 kind: ConfigMap
 metadata:
@@ -354,22 +358,29 @@ metadata:
 
 
       http://${NEST_DESKTOP_SERVICE_HOST}:54286/\n\u003c/VirtualHost\u003e\n"},"kind":"ConfigMap","metadata":{"annotations":{},"name":"apache2-oidc","namespace":"nest-desktop"}}
-  creationTimestamp: '2024-12-02T12:06:01Z'
+  creationTimestamp: '2023-11-02T11:46:43Z'
   managedFields:
     - apiVersion: v1
       fieldsType: FieldsV1
       fieldsV1:
+        f:data: {}
+        f:metadata:
+          f:annotations: {}
+      manager: kubectl
+      operation: Update
+      time: '2023-11-02T11:46:43Z'
+    - apiVersion: v1
+      fieldsType: FieldsV1
+      fieldsV1:
         f:data:
-          .: {}
           f:vhost.conf: {}
         f:metadata:
           f:annotations:
-            .: {}
             f:kubectl.kubernetes.io/last-applied-configuration: {}
       manager: agent
       operation: Update
-      time: '2024-12-03T07:08:39Z'
-  name: apache2-oidc-v3
+      time: '2024-12-06T21:34:57Z'
+  name: apache2-oidc
   namespace: nest-desktop
-  resourceVersion: '393359141'
-  uid: 78bc5f54-4869-4750-85bf-039d69d233e4
+  resourceVersion: '406758536'
+  uid: 45f89f73-3d50-4bbe-ad48-47e312fab9e3

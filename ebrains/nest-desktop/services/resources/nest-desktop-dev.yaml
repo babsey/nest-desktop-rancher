@@ -10,6 +10,30 @@ metadata:
           f:internalTrafficPolicy: {}
           f:ports:
             .: {}
+            k:{"port":8080,"protocol":"TCP"}:
+              .: {}
+              f:name: {}
+              f:port: {}
+              f:protocol: {}
+              f:targetPort: {}
+            k:{"port":11428,"protocol":"TCP"}:
+              .: {}
+              f:name: {}
+              f:port: {}
+              f:protocol: {}
+              f:targetPort: {}
+            k:{"port":52425,"protocol":"TCP"}:
+              .: {}
+              f:name: {}
+              f:port: {}
+              f:protocol: {}
+              f:targetPort: {}
+            k:{"port":52426,"protocol":"TCP"}:
+              .: {}
+              f:name: {}
+              f:port: {}
+              f:protocol: {}
+              f:targetPort: {}
             k:{"port":54286,"protocol":"TCP"}:
               .: {}
               f:name: {}
@@ -26,10 +50,10 @@ metadata:
           f:type: {}
       manager: agent
       operation: Update
-      time: '2024-11-07T16:35:30Z'
+      time: '2024-12-06T21:46:54Z'
   name: nest-desktop-dev
   namespace: nest-desktop
-  resourceVersion: '367118243'
+  resourceVersion: '406802580'
   uid: cf0ce6f5-5233-47a6-adc2-a9760511d472
 spec:
   clusterIP: 10.43.139.62
@@ -40,10 +64,26 @@ spec:
     - IPv4
   ipFamilyPolicy: SingleStack
   ports:
-    - name: nest-desktop
+    - name: auth
+      port: 8080
+      protocol: TCP
+      targetPort: auth
+    - name: frontend
       port: 54286
       protocol: TCP
-      targetPort: 54286
+      targetPort: frontend
+    - name: nest
+      port: 52425
+      protocol: TCP
+      targetPort: nest
+    - name: nestml
+      port: 52426
+      protocol: TCP
+      targetPort: nestml
+    - name: norse
+      port: 11428
+      protocol: TCP
+      targetPort: norse
   selector:
     io.kompose.service: nest-desktop-dev
   sessionAffinity: ClientIP

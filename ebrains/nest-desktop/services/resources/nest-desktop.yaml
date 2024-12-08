@@ -1,24 +1,28 @@
 apiVersion: v1
 kind: Service
 metadata:
-  creationTimestamp: '2023-11-03T12:20:40Z'
+  creationTimestamp: '2023-11-03T12:19:37Z'
   managedFields:
     - apiVersion: v1
       fieldsType: FieldsV1
       fieldsV1:
         f:spec:
-          f:allocateLoadBalancerNodePorts: {}
-          f:externalTrafficPolicy: {}
           f:internalTrafficPolicy: {}
           f:ports:
             .: {}
+            k:{"port":8080,"protocol":"TCP"}:
+              .: {}
+              f:name: {}
+              f:port: {}
+              f:protocol: {}
+              f:targetPort: {}
             k:{"port":52425,"protocol":"TCP"}:
               .: {}
               f:name: {}
               f:port: {}
               f:protocol: {}
               f:targetPort: {}
-            k:{"port":52426,"protocol":"TCP"}:
+            k:{"port":54286,"protocol":"TCP"}:
               .: {}
               f:name: {}
               f:port: {}
@@ -34,30 +38,34 @@ metadata:
           f:type: {}
       manager: agent
       operation: Update
-      time: '2024-11-07T16:02:01Z'
-  name: nest-simulator
+      time: '2024-12-06T22:12:02Z'
+  name: nest-desktop
   namespace: nest-desktop
-  resourceVersion: '367089457'
-  uid: 90cc03bd-c464-46df-91c1-c3e9df374dea
+  resourceVersion: '406893917'
+  uid: c8955de4-1272-4e7e-953f-3de02f1a3a82
 spec:
-  clusterIP: 10.43.46.230
+  clusterIP: 10.43.154.6
   clusterIPs:
-    - 10.43.46.230
+    - 10.43.154.6
   internalTrafficPolicy: Cluster
   ipFamilies:
     - IPv4
   ipFamilyPolicy: SingleStack
   ports:
-    - name: nest-simulator
+    - name: auth
+      port: 8080
+      protocol: TCP
+      targetPort: auth
+    - name: frontend
+      port: 54286
+      protocol: TCP
+      targetPort: frontend
+    - name: nest
       port: 52425
       protocol: TCP
-      targetPort: 52425
-    - name: nestml
-      port: 52426
-      protocol: TCP
-      targetPort: 52426
+      targetPort: nest
   selector:
-    io.kompose.service: nest-simulator
+    io.kompose.service: nest-desktop
   sessionAffinity: ClientIP
   sessionAffinityConfig:
     clientIP:

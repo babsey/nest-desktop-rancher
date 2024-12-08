@@ -51,16 +51,16 @@ data:
         #
 
         # NEST Simulator
-        ProxyPass /nest http://${NEST_SIMULATOR_DEV_SERVICE_HOST}:52425/
-        ProxyPassReverse /nest http://${NEST_SIMULATOR_DEV_SERVICE_HOST}:52425/
+        ProxyPass /nest http://${NEST_DESKTOP_DEV_SERVICE_HOST}:52425/
+        ProxyPassReverse /nest http://${NEST_DESKTOP_DEV_SERVICE_HOST}:52425/
         
         # NESTML Service
-        #ProxyPass /nestml http://${NEST_SIMULATOR_SERVICE_HOST}:52426/
-        #ProxyPassReverse /nestml http://${NEST_SIMULATOR_SERVICE_HOST}:52426/
+        ProxyPass /nestml http://${NEST_DESKTOP_DEV_SERVICE_HOST}:52426/
+        ProxyPassReverse /nestml http://${NEST_DESKTOP_DEV_SERVICE_HOST}:52426/
 
-        # Norse Simulator
-        ProxyPass /norse http://${NORSE_SIMULATOR_SERVICE_HOST}:11428/
-        ProxyPassReverse /norse http://${NORSE_SIMULATOR_SERVICE_HOST}:11428/
+        # NORSE Simulator
+        ProxyPass /norse http://${NEST_DESKTOP_DEV_SERVICE_HOST}:11428/
+        ProxyPassReverse /norse http://${NEST_DESKTOP_DEV_SERVICE_HOST}:11428/
 
         # NEST Desktop
         ProxyPass / http://${NEST_DESKTOP_DEV_SERVICE_HOST}:54286/
@@ -71,6 +71,15 @@ metadata:
   annotations:
     kubectl.kubernetes.io/last-applied-configuration: >
       {"apiVersion":"v1","data":{"vhost.conf":"ServerName
+
+
+
+
+
+
+
+
+
 
 
 
@@ -115,6 +124,15 @@ metadata:
 
 
 
+
+
+
+
+
+
+
+
+
       provider. For EBRAINS, it is here:\n    OIDCProviderMetadataURL
 
 
@@ -137,7 +155,25 @@ metadata:
 
 
 
+
+
+
+
+
+
+
+
+
       \"${OIDC_ISSUER}/.well-known/openid-configuration\"\n    OIDCClientID
+
+
+
+
+
+
+
+
+
 
 
 
@@ -182,7 +218,25 @@ metadata:
 
 
 
+
+
+
+
+
+
+
+
+
       /redirect_uri is used to authenticate you.\n    # It will be consumed by
+
+
+
+
+
+
+
+
+
 
 
 
@@ -226,6 +280,15 @@ metadata:
 
 
 
+
+
+
+
+
+
+
+
+
       OIDCRedirectURI \"${HOSTNAME}/redirect_uri\"\n    OIDCCryptoPassphrase
 
 
@@ -248,7 +311,25 @@ metadata:
 
 
 
+
+
+
+
+
+
+
+
+
       \"${OIDC_CRYPTO_PASSPHRASE}\"\n\n    # Interval in seconds after which the
+
+
+
+
+
+
+
+
+
 
 
 
@@ -293,6 +374,15 @@ metadata:
 
 
 
+
+
+
+
+
+
+
+
+
       defined, the default is 300 seconds.\n    OIDCSessionInactivityTimeout
 
 
@@ -315,7 +405,25 @@ metadata:
 
 
 
+
+
+
+
+
+
+
+
+
       3600\n\n    # Maximum duration of the application session\n    # When not
+
+
+
+
+
+
+
+
+
 
 
 
@@ -360,8 +468,26 @@ metadata:
 
 
 
+
+
+
+
+
+
+
+
+
       session duration will be set equal to the expiry time of the ID
       token.\n    #
+
+
+
+
+
+
+
+
+
 
 
 
@@ -406,6 +532,15 @@ metadata:
 
 
 
+
+
+
+
+
+
+
+
+
       session_max_duration\n    OIDCSessionMaxDuration 0\n\n    # Time to live
       in
 
@@ -429,7 +564,25 @@ metadata:
 
 
 
+
+
+
+
+
+
+
+
+
       seconds for state parameter\n    # i.e. the interval in which the
+
+
+
+
+
+
+
+
+
 
 
 
@@ -474,7 +627,25 @@ metadata:
 
 
 
+
+
+
+
+
+
+
+
+
       states if needed.\n    OIDCStateMaxNumberOfCookies 5 true\n\n   
+
+
+
+
+
+
+
+
+
 
 
 
@@ -519,7 +690,25 @@ metadata:
 
 
 
+
+
+
+
+
+
+
+
+
       valid-user\n    \u003c/Location\u003e\n\n    # This handles proxying.\n   
+
+
+
+
+
+
+
+
+
 
 
 
@@ -564,7 +753,25 @@ metadata:
 
 
 
+
+
+
+
+
+
+
+
+
       special url used by mod oidc, do not proxy\n    ProxyPass /redirect_uri
+
+
+
+
+
+
+
+
+
 
 
 
@@ -608,7 +815,25 @@ metadata:
 
 
 
+
+
+
+
+
+
+
+
+
       Simulator\n    ProxyPass /nest
+
+
+
+
+
+
+
+
+
 
 
 
@@ -652,7 +877,25 @@ metadata:
 
 
 
+
+
+
+
+
+
+
+
+
       http://${NEST_SIMULATOR_SERVICE_HOST}:52425/\n\n    # NEST Desktop\n   
+
+
+
+
+
+
+
+
+
 
 
 
@@ -697,6 +940,15 @@ metadata:
 
 
 
+
+
+
+
+
+
+
+
+
       http://${NEST_DESKTOP_SERVICE_HOST}:54286/\n\u003c/VirtualHost\u003e\n"},"kind":"ConfigMap","metadata":{"annotations":{},"name":"apache2-oidc","namespace":"nest-desktop"}}
   creationTimestamp: '2024-05-16T13:13:07Z'
   managedFields:
@@ -712,8 +964,8 @@ metadata:
             f:kubectl.kubernetes.io/last-applied-configuration: {}
       manager: agent
       operation: Update
-      time: '2024-11-07T16:42:03Z'
+      time: '2024-12-06T21:25:47Z'
   name: apache2-oidc-dev
   namespace: nest-desktop
-  resourceVersion: '367115521'
+  resourceVersion: '406724777'
   uid: e167e315-a3f0-45d9-b084-2abd9eecf17a

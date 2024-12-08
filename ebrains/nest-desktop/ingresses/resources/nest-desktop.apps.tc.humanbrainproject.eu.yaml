@@ -3,10 +3,20 @@ kind: Ingress
 metadata:
   annotations:
     field.cattle.io/publicEndpoints: >-
-      [{"addresses":["172.19.0.128","172.19.0.129","172.19.0.130","172.19.0.131","172.19.0.132","172.19.0.133","172.19.0.134","172.19.0.135","172.19.0.136","172.19.0.137","172.19.0.138"],"port":443,"protocol":"HTTPS","serviceName":"nest-desktop:nest-desktop-apps-tc-humanbrainproject-eu","ingressName":"nest-desktop:nest-desktop.apps.tc.humanbrainproject.eu","hostname":"nest-desktop.apps.tc.humanbrainproject.eu","path":"/","allNodes":false}]
+      [{"addresses":["172.19.0.128","172.19.0.129","172.19.0.130","172.19.0.131","172.19.0.132","172.19.0.133","172.19.0.134","172.19.0.135","172.19.0.136","172.19.0.137","172.19.0.138"],"port":443,"protocol":"HTTPS","serviceName":"nest-desktop:nest-desktop-dev","ingressName":"nest-desktop:nest-desktop.apps.tc.humanbrainproject.eu","hostname":"nest-desktop.apps.tc.humanbrainproject.eu","path":"/","allNodes":false}]
   creationTimestamp: '2024-05-16T13:19:46Z'
-  generation: 7
+  generation: 24
   managedFields:
+    - apiVersion: networking.k8s.io/v1
+      fieldsType: FieldsV1
+      fieldsV1:
+        f:status:
+          f:loadBalancer:
+            f:ingress: {}
+      manager: nginx-ingress-controller
+      operation: Update
+      subresource: status
+      time: '2024-12-03T15:38:35Z'
     - apiVersion: networking.k8s.io/v1
       fieldsType: FieldsV1
       fieldsV1:
@@ -28,20 +38,10 @@ metadata:
           f:tls: {}
       manager: agent
       operation: Update
-      time: '2024-11-28T17:42:51Z'
-    - apiVersion: networking.k8s.io/v1
-      fieldsType: FieldsV1
-      fieldsV1:
-        f:status:
-          f:loadBalancer:
-            f:ingress: {}
-      manager: nginx-ingress-controller
-      operation: Update
-      subresource: status
-      time: '2024-11-28T17:42:51Z'
+      time: '2024-12-06T21:18:38Z'
   name: nest-desktop.apps.tc.humanbrainproject.eu
   namespace: nest-desktop
-  resourceVersion: '389065067'
+  resourceVersion: '406698428'
   uid: cd304316-c885-4681-a9ae-8a79589f29eb
 spec:
   defaultBackend:
@@ -56,7 +56,7 @@ spec:
         paths:
           - backend:
               service:
-                name: nest-desktop-apps-tc-humanbrainproject-eu
+                name: nest-desktop-dev
                 port:
                   number: 8080
             path: /

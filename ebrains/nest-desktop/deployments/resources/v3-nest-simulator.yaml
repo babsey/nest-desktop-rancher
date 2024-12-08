@@ -2,17 +2,20 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   annotations:
-    deployment.kubernetes.io/revision: '30'
-  creationTimestamp: '2023-11-02T12:39:31Z'
-  generation: 185
+    deployment.kubernetes.io/revision: '1'
+  creationTimestamp: '2024-12-06T21:45:33Z'
+  generation: 1
   labels:
-    io.kompose.service: nest-simulator
-    workload.user.cattle.io/workloadselector: apps.deployment-nest-desktop-nest-simulator
+    io.kompose.service: nest-desktop-v3
+    workload.user.cattle.io/workloadselector: apps.deployment-nest-desktop-v3-nest-simulator
   managedFields:
     - apiVersion: apps/v1
       fieldsType: FieldsV1
       fieldsV1:
         f:metadata:
+          f:annotations:
+            .: {}
+            f:deployment.kubernetes.io/revision: {}
           f:labels:
             .: {}
             f:io.kompose.service: {}
@@ -30,14 +33,19 @@ metadata:
             f:type: {}
           f:template:
             f:metadata:
+              f:annotations:
+                .: {}
+                f:cattle.io/timestamp: {}
               f:labels:
                 .: {}
                 f:io.kompose.service: {}
                 f:workload.user.cattle.io/workloadselector: {}
+              f:name: {}
               f:namespace: {}
             f:spec:
+              f:affinity: {}
               f:containers:
-                k:{"name":"nest-simulator"}:
+                k:{"name":"nest"}:
                   .: {}
                   f:env:
                     .: {}
@@ -48,6 +56,13 @@ metadata:
                   f:image: {}
                   f:imagePullPolicy: {}
                   f:name: {}
+                  f:ports:
+                    .: {}
+                    k:{"containerPort":52425,"protocol":"TCP"}:
+                      .: {}
+                      f:containerPort: {}
+                      f:name: {}
+                      f:protocol: {}
                   f:resources:
                     .: {}
                     f:limits:
@@ -69,33 +84,6 @@ metadata:
                       f:name: {}
                       f:readOnly: {}
                       f:subPath: {}
-                k:{"name":"nestml"}:
-                  .: {}
-                  f:env:
-                    .: {}
-                    k:{"name":"NEST_CONTAINER_MODE"}:
-                      .: {}
-                      f:name: {}
-                      f:value: {}
-                  f:image: {}
-                  f:imagePullPolicy: {}
-                  f:name: {}
-                  f:resources: {}
-                  f:securityContext:
-                    .: {}
-                    f:allowPrivilegeEscalation: {}
-                    f:privileged: {}
-                    f:readOnlyRootFilesystem: {}
-                    f:runAsNonRoot: {}
-                  f:terminationMessagePath: {}
-                  f:terminationMessagePolicy: {}
-                  f:volumeMounts:
-                    .: {}
-                    k:{"mountPath":"/tmp/nestmlmodules"}:
-                      .: {}
-                      f:mountPath: {}
-                      f:name: {}
-                      f:subPath: {}
               f:dnsPolicy: {}
               f:restartPolicy: {}
               f:schedulerName: {}
@@ -111,14 +99,10 @@ metadata:
                     f:claimName: {}
       manager: agent
       operation: Update
-      time: '2024-12-02T11:05:54Z'
+      time: '2024-12-06T21:45:33Z'
     - apiVersion: apps/v1
       fieldsType: FieldsV1
       fieldsV1:
-        f:metadata:
-          f:annotations:
-            .: {}
-            f:deployment.kubernetes.io/revision: {}
         f:status:
           f:availableReplicas: {}
           f:conditions:
@@ -146,18 +130,18 @@ metadata:
       manager: kube-controller-manager
       operation: Update
       subresource: status
-      time: '2024-12-02T11:05:55Z'
-  name: nest-simulator
+      time: '2024-12-06T21:46:35Z'
+  name: v3-nest-simulator
   namespace: nest-desktop
-  resourceVersion: '392468379'
-  uid: 0c7b7ebb-83bc-4a4b-96b5-b393cd274532
+  resourceVersion: '406801434'
+  uid: 0603c359-5067-4049-97d3-b7eb713b03cd
 spec:
   progressDeadlineSeconds: 600
-  replicas: 2
+  replicas: 1
   revisionHistoryLimit: 10
   selector:
     matchLabels:
-      workload.user.cattle.io/workloadselector: apps.deployment-nest-desktop-nest-simulator
+      workload.user.cattle.io/workloadselector: apps.deployment-nest-desktop-v3-nest-simulator
   strategy:
     rollingUpdate:
       maxSurge: 25%
@@ -165,19 +149,27 @@ spec:
     type: RollingUpdate
   template:
     metadata:
+      annotations:
+        cattle.io/timestamp: '2024-12-06T09:59:14Z'
       creationTimestamp: null
       labels:
-        io.kompose.service: nest-simulator
-        workload.user.cattle.io/workloadselector: apps.deployment-nest-desktop-nest-simulator
+        io.kompose.service: nest-desktop-v3
+        workload.user.cattle.io/workloadselector: apps.deployment-nest-desktop-v3-nest-simulator
+      name: v3-nest-simulator
       namespace: nest-desktop
     spec:
+      affinity: {}
       containers:
         - env:
             - name: NEST_CONTAINER_MODE
               value: nest-server
           image: nest/nest-simulator:3.8
-          imagePullPolicy: IfNotPresent
-          name: nest-simulator
+          imagePullPolicy: Always
+          name: nest
+          ports:
+            - containerPort: 52425
+              name: nest
+              protocol: TCP
           resources:
             limits:
               memory: 4000Mi
@@ -193,24 +185,6 @@ spec:
               name: vol-jx9ue
               readOnly: true
               subPath: nestmlmodules
-        - env:
-            - name: NEST_CONTAINER_MODE
-              value: nestml-server
-          image: nest/nest-simulator:3.8
-          imagePullPolicy: IfNotPresent
-          name: nestml
-          resources: {}
-          securityContext:
-            allowPrivilegeEscalation: false
-            privileged: false
-            readOnlyRootFilesystem: false
-            runAsNonRoot: false
-          terminationMessagePath: /dev/termination-log
-          terminationMessagePolicy: File
-          volumeMounts:
-            - mountPath: /tmp/nestmlmodules
-              name: vol-jx9ue
-              subPath: nestmlmodules
       dnsPolicy: ClusterFirst
       restartPolicy: Always
       schedulerName: default-scheduler
@@ -221,21 +195,21 @@ spec:
           persistentVolumeClaim:
             claimName: nestmlmodules
 status:
-  availableReplicas: 2
+  availableReplicas: 1
   conditions:
-    - lastTransitionTime: '2024-09-26T06:29:14Z'
-      lastUpdateTime: '2024-11-05T07:21:32Z'
-      message: ReplicaSet "nest-simulator-74d4f98d8d" has successfully progressed.
-      reason: NewReplicaSetAvailable
-      status: 'True'
-      type: Progressing
-    - lastTransitionTime: '2024-12-02T09:16:50Z'
-      lastUpdateTime: '2024-12-02T09:16:50Z'
+    - lastTransitionTime: '2024-12-06T21:46:35Z'
+      lastUpdateTime: '2024-12-06T21:46:35Z'
       message: Deployment has minimum availability.
       reason: MinimumReplicasAvailable
       status: 'True'
       type: Available
-  observedGeneration: 185
-  readyReplicas: 2
-  replicas: 2
-  updatedReplicas: 2
+    - lastTransitionTime: '2024-12-06T21:45:33Z'
+      lastUpdateTime: '2024-12-06T21:46:35Z'
+      message: ReplicaSet "v3-nest-simulator-6d7bc58596" has successfully progressed.
+      reason: NewReplicaSetAvailable
+      status: 'True'
+      type: Progressing
+  observedGeneration: 1
+  readyReplicas: 1
+  replicas: 1
+  updatedReplicas: 1

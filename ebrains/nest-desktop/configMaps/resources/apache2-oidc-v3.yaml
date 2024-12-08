@@ -51,22 +51,21 @@ data:
         #
 
         # NEST Simulator
-        ProxyPass /nest http://${NEST_SIMULATOR_SERVICE_HOST}:52425/
-        ProxyPassReverse /nest http://${NEST_SIMULATOR_SERVICE_HOST}:52425/
-
-        # NESTML
-        #ProxyPass /nestml http://${NEST_SIMULATOR_SERVICE_HOST}:52426/
-        #ProxyPassReverse /nestml http://${NEST_SIMULATOR_SERVICE_HOST}:52426/
+        ProxyPass /nest http://${NEST_DESKTOP_V3_SERVICE_HOST}:52425/
+        ProxyPassReverse /nest http://${NEST_DESKTOP_V3_SERVICE_HOST}:52425/
 
         # NEST Desktop
-        ProxyPass / http://${NEST_DESKTOP_SERVICE_HOST}:54286/
-        ProxyPassReverse / http://${NEST_DESKTOP_SERVICE_HOST}:54286/
+        ProxyPass / http://${NEST_DESKTOP_V3_SERVICE_HOST}:54286/
+        ProxyPassReverse / http://${NEST_DESKTOP_V3_SERVICE_HOST}:54286/
     </VirtualHost>
 kind: ConfigMap
 metadata:
   annotations:
     kubectl.kubernetes.io/last-applied-configuration: >
       {"apiVersion":"v1","data":{"vhost.conf":"ServerName
+
+
+
 
 
 
@@ -83,6 +82,9 @@ metadata:
 
 
 
+
+
+
       provider. For EBRAINS, it is here:\n    OIDCProviderMetadataURL
 
 
@@ -91,7 +93,13 @@ metadata:
 
 
 
+
+
+
       \"${OIDC_ISSUER}/.well-known/openid-configuration\"\n    OIDCClientID
+
+
+
 
 
 
@@ -108,7 +116,13 @@ metadata:
 
 
 
+
+
+
       /redirect_uri is used to authenticate you.\n    # It will be consumed by
+
+
+
 
 
 
@@ -124,6 +138,9 @@ metadata:
 
 
 
+
+
+
       OIDCRedirectURI \"${HOSTNAME}/redirect_uri\"\n    OIDCCryptoPassphrase
 
 
@@ -132,7 +149,13 @@ metadata:
 
 
 
+
+
+
       \"${OIDC_CRYPTO_PASSPHRASE}\"\n\n    # Interval in seconds after which the
+
+
+
 
 
 
@@ -149,6 +172,9 @@ metadata:
 
 
 
+
+
+
       defined, the default is 300 seconds.\n    OIDCSessionInactivityTimeout
 
 
@@ -157,7 +183,13 @@ metadata:
 
 
 
+
+
+
       3600\n\n    # Maximum duration of the application session\n    # When not
+
+
+
 
 
 
@@ -174,8 +206,14 @@ metadata:
 
 
 
+
+
+
       session duration will be set equal to the expiry time of the ID
       token.\n    #
+
+
+
 
 
 
@@ -192,6 +230,9 @@ metadata:
 
 
 
+
+
+
       session_max_duration\n    OIDCSessionMaxDuration 0\n\n    # Time to live
       in
 
@@ -201,7 +242,13 @@ metadata:
 
 
 
+
+
+
       seconds for state parameter\n    # i.e. the interval in which the
+
+
+
 
 
 
@@ -218,7 +265,13 @@ metadata:
 
 
 
+
+
+
       states if needed.\n    OIDCStateMaxNumberOfCookies 5 true\n\n   
+
+
+
 
 
 
@@ -235,7 +288,13 @@ metadata:
 
 
 
+
+
+
       valid-user\n    \u003c/Location\u003e\n\n    # This handles proxying.\n   
+
+
+
 
 
 
@@ -252,7 +311,13 @@ metadata:
 
 
 
+
+
+
       special url used by mod oidc, do not proxy\n    ProxyPass /redirect_uri
+
+
+
 
 
 
@@ -268,7 +333,13 @@ metadata:
 
 
 
+
+
+
       Simulator\n    ProxyPass /nest
+
+
+
 
 
 
@@ -284,7 +355,13 @@ metadata:
 
 
 
+
+
+
       http://${NEST_SIMULATOR_SERVICE_HOST}:52425/\n\n    # NEST Desktop\n   
+
+
+
 
 
 
@@ -301,30 +378,26 @@ metadata:
 
 
 
+
+
+
       http://${NEST_DESKTOP_SERVICE_HOST}:54286/\n\u003c/VirtualHost\u003e\n"},"kind":"ConfigMap","metadata":{"annotations":{},"name":"apache2-oidc","namespace":"nest-desktop"}}
-  creationTimestamp: '2023-11-02T11:46:43Z'
+  creationTimestamp: '2024-12-02T12:06:01Z'
   managedFields:
     - apiVersion: v1
       fieldsType: FieldsV1
       fieldsV1:
-        f:data: {}
-        f:metadata:
-          f:annotations: {}
-      manager: kubectl
-      operation: Update
-      time: '2023-11-02T11:46:43Z'
-    - apiVersion: v1
-      fieldsType: FieldsV1
-      fieldsV1:
         f:data:
+          .: {}
           f:vhost.conf: {}
         f:metadata:
           f:annotations:
+            .: {}
             f:kubectl.kubernetes.io/last-applied-configuration: {}
       manager: agent
       operation: Update
-      time: '2024-11-06T11:53:55Z'
-  name: apache2-oidc
+      time: '2024-12-06T21:40:30Z'
+  name: apache2-oidc-v3
   namespace: nest-desktop
-  resourceVersion: '366019081'
-  uid: 45f89f73-3d50-4bbe-ad48-47e312fab9e3
+  resourceVersion: '406778990'
+  uid: 78bc5f54-4869-4750-85bf-039d69d233e4
